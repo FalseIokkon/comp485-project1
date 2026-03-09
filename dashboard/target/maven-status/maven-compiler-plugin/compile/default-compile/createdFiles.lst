@@ -1,1 +1,5 @@
-com\yunzog\project\App.class
+com\yunzog\dashboard\App.class
+com\yunzog\dashboard\MainController.class
+com\yunzog\dashboard\model\DivisionKPI.class
+com\yunzog\dashboard\dao\DivisionDAO.class
+com\yunzog\dashboard\db\DB.class
