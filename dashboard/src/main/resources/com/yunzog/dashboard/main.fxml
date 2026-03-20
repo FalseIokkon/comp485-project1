@@ -12,20 +12,31 @@
 
     <top>
         <VBox spacing="0">
+
             <HBox spacing="12" style="-fx-background-color: #1f1f1f;">
                 <padding>
                     <Insets top="16" right="16" bottom="16" left="16"/>
                 </padding>
 
+                <!-- LEFT SIDE -->
                 <VBox spacing="4">
                     <Label text="Yunzog CEO Dashboard"
-                           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                        style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
                     <Label text="Executive overview of all divisions"
-                           style="-fx-font-size: 12px; -fx-text-fill: #bdbdbd;" />
+                        style="-fx-font-size: 12px; -fx-text-fill: #bdbdbd;" />
                 </VBox>
 
                 <Region HBox.hgrow="ALWAYS"/>
-                <Button text="Refresh" onAction="#onRefresh"/>
+
+                <HBox spacing="8" alignment="CENTER_RIGHT">
+                    <Button fx:id="refreshButton"
+                            text="Refresh"
+                            onAction="#onRefresh"
+                            focusTraversable="false"/>
+                    <Button text="Exit"
+                            onAction="#onExit"
+                            focusTraversable="false"/>
+                </HBox>
             </HBox>
         </VBox>
     </top>
@@ -39,47 +50,65 @@
                     </padding>
 
                     <top>
-                        <HBox spacing="16">
+                        <FlowPane hgap="16" vgap="16">
                             <BorderPane.margin>
                                 <Insets bottom="16"/>
                             </BorderPane.margin>
 
                             <VBox spacing="6"
-                                  prefWidth="220"
+                                  prefWidth="180"
                                   style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
                                 <Label text="Monthly Revenue"
                                        style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
-                                <Label text="\$4.8M"
+                                <Label fx:id="revenueLabel"
                                        style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
                             </VBox>
 
                             <VBox spacing="6"
-                                  prefWidth="220"
+                                  prefWidth="180"
                                   style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
                                 <Label text="Open Positions"
                                        style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
-                                <Label text="12"
+                                <Label fx:id="positionsLabel"
                                        style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
                             </VBox>
 
                             <VBox spacing="6"
-                                  prefWidth="220"
+                                  prefWidth="180"
                                   style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
                                 <Label text="On-Time Delivery"
                                        style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
-                                <Label text="96.2%"
+                                <Label fx:id="deliveryLabel"
                                        style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
                             </VBox>
 
                             <VBox spacing="6"
-                                  prefWidth="220"
+                                  prefWidth="180"
                                   style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
                                 <Label text="Leads This Month"
                                        style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
-                                <Label text="420"
+                                <Label fx:id="leadsLabel"
                                        style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
                             </VBox>
-                        </HBox>
+
+                            <VBox spacing="6"
+                                  prefWidth="180"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                                <Label text="Units Produced"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                                <Label fx:id="unitsLabel"
+                                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                            </VBox>
+
+                            <VBox spacing="6"
+                                  prefWidth="180"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                                <Label text="Active Customers"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                                <Label fx:id="customersLabel"
+                                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                            </VBox>
+                        </FlowPane>
                     </top>
 
                     <center>
