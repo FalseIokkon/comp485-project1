@@ -1,53 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
+<BorderPane xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.yunzog.dashboard.MainController">
+            fx:controller="com.yunzog.dashboard.MainController"
+            style="-fx-background-color: #121212;">
 
     <top>
-        <HBox spacing="12">
-            <padding>
-                <Insets top="12" right="12" bottom="12" left="12"/>
-            </padding>
+        <VBox spacing="0">
+            <HBox spacing="12" style="-fx-background-color: #1f1f1f;">
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
 
-            <Label text="Yunzog CEO Dashboard"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button text="Refresh" onAction="#onRefresh"/>
-        </HBox>
+                <VBox spacing="4">
+                    <Label text="Yunzog CEO Dashboard"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                    <Label text="Executive overview of all divisions"
+                           style="-fx-font-size: 12px; -fx-text-fill: #bdbdbd;" />
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Refresh" onAction="#onRefresh"/>
+            </HBox>
+        </VBox>
     </top>
 
     <center>
-        <TabPane>
-            <Tab text="Overview" closable="false">
-                <BorderPane>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Overview">
+                <BorderPane style="-fx-background-color: #121212;">
                     <padding>
-                        <Insets top="12" right="12" bottom="12" left="12"/>
+                        <Insets top="16" right="16" bottom="16" left="16"/>
                     </padding>
 
+                    <top>
+                        <HBox spacing="16">
+                            <BorderPane.margin>
+                                <Insets bottom="16"/>
+                            </BorderPane.margin>
+
+                            <VBox spacing="6"
+                                  prefWidth="220"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                                <Label text="Monthly Revenue"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                                <Label text="\$4.8M"
+                                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                            </VBox>
+
+                            <VBox spacing="6"
+                                  prefWidth="220"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                                <Label text="Open Positions"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                                <Label text="12"
+                                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                            </VBox>
+
+                            <VBox spacing="6"
+                                  prefWidth="220"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                                <Label text="On-Time Delivery"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                                <Label text="96.2%"
+                                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                            </VBox>
+
+                            <VBox spacing="6"
+                                  prefWidth="220"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                                <Label text="Leads This Month"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                                <Label text="420"
+                                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                            </VBox>
+                        </HBox>
+                    </top>
+
                     <center>
-                        <TableView fx:id="table">
-                            <columns>
-                                <TableColumn fx:id="divisionCol" text="Division" prefWidth="180"/>
-                                <TableColumn fx:id="metricCol" text="Metric" prefWidth="420"/>
-                                <TableColumn fx:id="valueCol" text="Value" prefWidth="160"/>
-                                <TableColumn fx:id="asOfCol" text="As Of" prefWidth="160"/>
-                            </columns>
-                        </TableView>
+                        <VBox spacing="10">
+                            <Label text="Division Metrics"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+                            <TableView fx:id="table"
+                                       VBox.vgrow="ALWAYS"
+                                       style="-fx-background-color: #1f1f1f;">
+                                <columns>
+                                    <TableColumn fx:id="divisionCol" text="Division"/>
+                                    <TableColumn fx:id="metricCol" text="Metric"/>
+                                    <TableColumn fx:id="valueCol" text="Value"/>
+                                    <TableColumn fx:id="asOfCol" text="As Of"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
                     </center>
                 </BorderPane>
             </Tab>
 
-            <Tab text="HR" closable="false"/>
-            <Tab text="Finance" closable="false"/>
-            <Tab text="Administration" closable="false"/>
-            <Tab text="Marketing" closable="false"/>
-            <Tab text="Manufacturing" closable="false"/>
-            <Tab text="Distributing" closable="false"/>
+            <Tab text="HR">
+                <BorderPane style="-fx-background-color: #121212;">
+                    <center>
+                        <Label text="HR dashboard content goes here"
+                               style="-fx-font-size: 18px; -fx-text-fill: white;" />
+                    </center>
+                </BorderPane>
+            </Tab>
+
+            <Tab text="Finance">
+                <BorderPane style="-fx-background-color: #121212;">
+                    <center>
+                        <Label text="Finance dashboard content goes here"
+                               style="-fx-font-size: 18px; -fx-text-fill: white;" />
+                    </center>
+                </BorderPane>
+            </Tab>
+
+            <Tab text="Administration">
+                <BorderPane style="-fx-background-color: #121212;">
+                    <center>
+                        <Label text="Administration dashboard content goes here"
+                               style="-fx-font-size: 18px; -fx-text-fill: white;" />
+                    </center>
+                </BorderPane>
+            </Tab>
+
+            <Tab text="Marketing">
+                <BorderPane style="-fx-background-color: #121212;">
+                    <center>
+                        <Label text="Marketing dashboard content goes here"
+                               style="-fx-font-size: 18px; -fx-text-fill: white;" />
+                    </center>
+                </BorderPane>
+            </Tab>
+
+            <Tab text="Manufacturing">
+                <BorderPane style="-fx-background-color: #121212;">
+                    <center>
+                        <Label text="Manufacturing dashboard content goes here"
+                               style="-fx-font-size: 18px; -fx-text-fill: white;" />
+                    </center>
+                </BorderPane>
+            </Tab>
+
+            <Tab text="Distributing">
+                <BorderPane style="-fx-background-color: #121212;">
+                    <center>
+                        <Label text="Distributing dashboard content goes here"
+                               style="-fx-font-size: 18px; -fx-text-fill: white;" />
+                    </center>
+                </BorderPane>
+            </Tab>
         </TabPane>
     </center>
 </BorderPane>
