@@ -16,7 +16,7 @@ src/main/resources/com/yunzog/dashboard
 
 ## Requirements
 
-* JDK 17 or newer
+* JDK 25 or newer
 * Maven
 
 ## Run the Application
