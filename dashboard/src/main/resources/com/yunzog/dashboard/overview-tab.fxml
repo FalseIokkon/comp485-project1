@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.yunzog.dashboard.controller.OverviewController"
+            style="-fx-background-color: #121212;">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <top>
+        <FlowPane hgap="16" vgap="16">
+            <BorderPane.margin>
+                <Insets bottom="16"/>
+            </BorderPane.margin>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Monthly Revenue"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="revenueLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Open Positions"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="positionsLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="On-Time Delivery"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="deliveryLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Leads This Month"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="leadsLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Units Produced"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="unitsLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Active Customers"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="customersLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+        </FlowPane>
+    </top>
+
+    <center>
+        <VBox spacing="16">
+            <LineChart fx:id="performanceChart"
+                       title="Revenue vs Expenses by Month"
+                       animated="false"
+                       createSymbols="true"
+                       VBox.vgrow="ALWAYS">
+                <xAxis>
+                    <CategoryAxis label="Month"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Amount"/>
+                </yAxis>
+            </LineChart>
+
+            <VBox spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="Division Metrics"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+                <TableView fx:id="table"
+                           VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: #1f1f1f;">
+                    <columns>
+                        <TableColumn fx:id="divisionCol" text="Division"/>
+                        <TableColumn fx:id="metricCol" text="Metric"/>
+                        <TableColumn fx:id="valueCol" text="Value"/>
+                        <TableColumn fx:id="asOfCol" text="As Of"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

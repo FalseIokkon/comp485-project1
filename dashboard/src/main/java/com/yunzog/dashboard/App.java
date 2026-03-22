@@ -21,7 +21,7 @@ public class App extends Application {
         
         
         FXMLLoader loader = new FXMLLoader(App.class.getResource("main.fxml"));
-        Scene scene = new Scene(loader.load(), 900, 600);
+        Scene scene = new Scene(loader.load(), 1200, 720);
 
         // Apply JMetro
         JMetro jMetro = new JMetro(Style.DARK); 
