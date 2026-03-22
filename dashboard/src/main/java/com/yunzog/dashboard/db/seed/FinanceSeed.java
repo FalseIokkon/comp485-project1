@@ -60,7 +60,6 @@ public class FinanceSeed {
                 String category = categories[i % categories.length];
                 String description = descriptions[i % descriptions.length];
 
-                // Bigger amounts so the expenses line is visible against revenue
                 double amount = 2200 + (i * 180);
 
                 insertExpense(
@@ -136,7 +135,7 @@ public class FinanceSeed {
 
                 String paymentStatus = "PAID";
                 double amountPaid = amount;
-                
+
                 insertInvoice(
                         ps,
                         "INV-" + invoiceNumber,

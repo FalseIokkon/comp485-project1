@@ -23,6 +23,10 @@ public class HRSeed {
             insertEmployee(ps, "Jim", "Halpert", "jim@yunzog.com", "Sales Representative", 7, 1, "2021-07-01", "ACTIVE", 4.4, 97.2, 61000);
             insertEmployee(ps, "Dwight", "Schrute", "dwight@yunzog.com", "Sales Representative", 7, 1, "2020-03-20", "ACTIVE", 4.7, 99.0, 64000);
             insertEmployee(ps, "Angela", "Martin", "angela@yunzog.com", "Accountant", 2, 1, "2021-09-12", "ACTIVE", 4.3, 97.8, 59000);
+            insertEmployee(ps, "Kelly", "Kapoor", "kelly@yunzog.com", "HR Specialist", 1, 1, "2025-02-14", "ACTIVE", 4.1, 96.7, 52000);
+            insertEmployee(ps, "Ryan", "Howard", "ryan@yunzog.com", "Marketing Coordinator", 3, 2, "2025-06-03", "ACTIVE", 3.6, 94.8, 51000);
+            insertEmployee(ps, "Oscar", "Martinez", "oscar@yunzog.com", "Financial Analyst", 2, 1, "2025-09-09", "ACTIVE", 4.5, 98.1, 63000);
+            insertEmployee(ps, "Erin", "Hannon", "erin@yunzog.com", "Administrative Assistant", 6, 1, "2025-12-05", "ACTIVE", 4.0, 97.3, 43000);
         }
     }
 
