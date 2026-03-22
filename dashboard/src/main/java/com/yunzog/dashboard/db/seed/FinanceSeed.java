@@ -2,8 +2,15 @@ package com.yunzog.dashboard.db.seed;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 public class FinanceSeed {
+
+    private static final LocalDate START = LocalDate.of(2025, 1, 1);
+    private static final LocalDate END = LocalDate.of(2025, 12, 31);
+    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static void seed(Connection conn) throws Exception {
         seedExpenses(conn);
@@ -19,11 +26,52 @@ public class FinanceSeed {
         """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            insertExpense(ps, "2026-01-10", 2, "Office Supplies", "Accounting office supplies", 450.00);
-            insertExpense(ps, "2026-01-15", 3, "Advertising", "Regional print ad campaign", 1800.00);
-            insertExpense(ps, "2026-02-05", 4, "Equipment", "Production equipment maintenance", 2200.00);
-            insertExpense(ps, "2026-02-14", 6, "Utilities", "Admin office utilities", 950.00);
-            insertExpense(ps, "2026-03-03", 5, "Shipping", "Distribution support costs", 1400.00);
+            String[] categories = {
+                "Office Supplies",
+                "Advertising",
+                "Equipment",
+                "Utilities",
+                "Shipping"
+            };
+
+            String[] descriptions = {
+                "Accounting office supplies",
+                "Regional ad campaign",
+                "Production equipment maintenance",
+                "Branch utility bill",
+                "Distribution support costs"
+            };
+
+            int totalRows = 36;
+            long totalDays = END.toEpochDay() - START.toEpochDay();
+
+            for (int i = 0; i < totalRows; i++) {
+                long offsetDays = (i * totalDays) / (totalRows - 1);
+                LocalDate expenseDate = START.plusDays(offsetDays);
+
+                int departmentId = switch (i % 5) {
+                    case 0 -> 2; // Finance
+                    case 1 -> 3; // Marketing
+                    case 2 -> 4; // Manufacturing
+                    case 3 -> 6; // Administration
+                    default -> 5; // Distribution
+                };
+
+                String category = categories[i % categories.length];
+                String description = descriptions[i % descriptions.length];
+
+                // Bigger amounts so the expenses line is visible against revenue
+                double amount = 2200 + (i * 180);
+
+                insertExpense(
+                        ps,
+                        expenseDate.format(FMT),
+                        departmentId,
+                        category,
+                        description,
+                        amount
+                );
+            }
         }
     }
 
@@ -35,11 +83,33 @@ public class FinanceSeed {
         """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            insertPayroll(ps, 1, "2026-02-01", "2026-02-28", 6500.00, 500.00, 1200.00, 5800.00, "2026-03-01");
-            insertPayroll(ps, 2, "2026-02-01", "2026-02-28", 3500.00, 0.00, 700.00, 2800.00, "2026-03-01");
-            insertPayroll(ps, 3, "2026-02-01", "2026-02-28", 5000.00, 300.00, 950.00, 4350.00, "2026-03-01");
-            insertPayroll(ps, 4, "2026-02-01", "2026-02-28", 5200.00, 450.00, 1000.00, 4650.00, "2026-03-01");
-            insertPayroll(ps, 5, "2026-02-01", "2026-02-28", 4800.00, 0.00, 900.00, 3900.00, "2026-03-01");
+            int employeeCount = 5;
+
+            for (int month = 1; month <= 12; month++) {
+                YearMonth ym = YearMonth.of(2025, month);
+                LocalDate payPeriodStart = ym.atDay(1);
+                LocalDate payPeriodEnd = ym.atEndOfMonth();
+                LocalDate paidDate = payPeriodEnd;
+
+                for (int employeeId = 1; employeeId <= employeeCount; employeeId++) {
+                    double grossPay = 3200 + (employeeId * 550) + (month * 25);
+                    double bonus = ((employeeId + month) % 3 == 0) ? 250.00 : 0.00;
+                    double deductions = round2(grossPay * 0.18);
+                    double netPay = round2(grossPay + bonus - deductions);
+
+                    insertPayroll(
+                            ps,
+                            employeeId,
+                            payPeriodStart.format(FMT),
+                            payPeriodEnd.format(FMT),
+                            grossPay,
+                            bonus,
+                            deductions,
+                            netPay,
+                            paidDate.format(FMT)
+                    );
+                }
+            }
         }
     }
 
@@ -51,11 +121,33 @@ public class FinanceSeed {
         """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            insertInvoice(ps, "INV-1001", 1, "2026-01-08", "2026-02-08", 4200.00, 4200.00, "PAID");
-            insertInvoice(ps, "INV-1002", 2, "2026-01-15", "2026-02-15", 3100.00, 3100.00, "PAID");
-            insertInvoice(ps, "INV-1003", 3, "2026-02-04", "2026-03-04", 5800.00, 3000.00, "PARTIAL");
-            insertInvoice(ps, "INV-1004", 4, "2026-02-18", "2026-03-18", 2600.00, 0.00, "OVERDUE");
-            insertInvoice(ps, "INV-1005", 5, "2026-03-02", "2026-04-02", 4900.00, 0.00, "UNPAID");
+            int totalRows = 60;
+            long totalDays = END.toEpochDay() - START.toEpochDay();
+
+            for (int i = 0; i < totalRows; i++) {
+                int invoiceNumber = 1001 + i;
+
+                long offsetDays = (i * totalDays) / (totalRows - 1);
+                LocalDate invoiceDate = START.plusDays(offsetDays);
+                LocalDate dueDate = invoiceDate.plusDays(30);
+
+                int customerId = (i % 5) + 1;
+                double amount = 2800 + (i * 165);
+
+                String paymentStatus = "PAID";
+                double amountPaid = amount;
+                
+                insertInvoice(
+                        ps,
+                        "INV-" + invoiceNumber,
+                        customerId,
+                        invoiceDate.format(FMT),
+                        dueDate.format(FMT),
+                        amount,
+                        amountPaid,
+                        paymentStatus
+                );
+            }
         }
     }
 
@@ -115,5 +207,9 @@ public class FinanceSeed {
         ps.setDouble(6, amountPaid);
         ps.setString(7, paymentStatus);
         ps.executeUpdate();
+    }
+
+    private static double round2(double value) {
+        return Math.round(value * 100.0) / 100.0;
     }
 }

@@ -2,8 +2,14 @@ package com.yunzog.dashboard.db.seed;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class OperationsSeed {
+
+    private static final LocalDate START = LocalDate.of(2025, 1, 1);
+    private static final LocalDate END = LocalDate.of(2025, 12, 31);
+    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static void seed(Connection conn) throws Exception {
         seedProducts(conn);
@@ -33,11 +39,64 @@ public class OperationsSeed {
         """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            insertBatch(ps, 1, "2026-03-01", "2026-03-01", 5000, 4920, 35, 97.5, "COMPLETED");
-            insertBatch(ps, 2, "2026-03-03", "2026-03-03", 3500, 3440, 22, 96.8, "COMPLETED");
-            insertBatch(ps, 3, "2026-03-05", null, 2800, 1200, 12, 94.3, "IN_PROGRESS");
-            insertBatch(ps, 4, "2026-03-07", "2026-03-08", 2000, 1910, 18, 92.7, "DELAYED");
-            insertBatch(ps, 1, "2026-03-10", null, 5200, 0, 0, 100.0, "PLANNED");
+            int totalRows = 24;
+            long totalDays = END.toEpochDay() - START.toEpochDay();
+
+            for (int i = 0; i < totalRows; i++) {
+                long offsetDays = (i * totalDays) / (totalRows - 1);
+                LocalDate scheduledDate = START.plusDays(offsetDays);
+
+                int productId = (i % 4) + 1;
+                int unitsPlanned = 3200 + (i * 180);
+                int unitsProduced;
+                int defectCount;
+                double machineUptime;
+                String status;
+                String completedDate;
+
+                if (scheduledDate.isBefore(LocalDate.of(2025, 11, 15))) {
+                    status = (i % 7 == 0) ? "DELAYED" : "COMPLETED";
+                    defectCount = 18 + (i % 20);
+                    unitsProduced = unitsPlanned - (50 + (i % 60));
+                    machineUptime = 93.5 + (i % 6);
+
+                    if ("COMPLETED".equals(status)) {
+                        completedDate = scheduledDate.plusDays(1 + (i % 2)).format(FMT);
+                    } else {
+                        completedDate = scheduledDate.plusDays(3).format(FMT);
+                    }
+                } else if (scheduledDate.isBefore(LocalDate.of(2025, 12, 20))) {
+                    status = "IN_PROGRESS";
+                    defectCount = 8 + (i % 10);
+                    unitsProduced = unitsPlanned / 2;
+                    machineUptime = 95.0 + (i % 4);
+                    completedDate = null;
+                } else {
+                    status = "PLANNED";
+                    defectCount = 0;
+                    unitsProduced = 0;
+                    machineUptime = 100.0;
+                    completedDate = null;
+                }
+
+                insertBatch(
+                        ps,
+                        productId,
+                        scheduledDate.format(FMT),
+                        completedDate,
+                        unitsPlanned,
+                        unitsProduced,
+                        defectCount,
+                        machineUptime,
+                        status
+                );
+            }
+
+            // extra completed December batches so REPORT_MONTH=2025-12 has meaningful units
+            insertBatch(ps, 1, "2025-12-03", "2025-12-04", 5200, 5080, 26, 97.8, "COMPLETED");
+            insertBatch(ps, 2, "2025-12-10", "2025-12-11", 4300, 4215, 21, 96.9, "COMPLETED");
+            insertBatch(ps, 3, "2025-12-17", null, 3900, 1800, 10, 95.4, "IN_PROGRESS");
+            insertBatch(ps, 4, "2025-12-27", null, 3600, 0, 0, 100.0, "PLANNED");
         }
     }
 

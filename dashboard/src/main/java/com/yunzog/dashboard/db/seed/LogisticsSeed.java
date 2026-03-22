@@ -2,8 +2,14 @@ package com.yunzog.dashboard.db.seed;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class LogisticsSeed {
+
+    private static final LocalDate START = LocalDate.of(2025, 1, 1);
+    private static final LocalDate END = LocalDate.of(2025, 12, 31);
+    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static void seed(Connection conn) throws Exception {
         seedCustomers(conn);
@@ -35,11 +41,33 @@ public class LogisticsSeed {
         """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            insertOrder(ps, 1, "2026-01-06", 4200.00, "DELIVERED");
-            insertOrder(ps, 2, "2026-01-13", 3100.00, "DELIVERED");
-            insertOrder(ps, 3, "2026-02-02", 5800.00, "SHIPPED");
-            insertOrder(ps, 4, "2026-02-16", 2600.00, "DELIVERED");
-            insertOrder(ps, 5, "2026-03-01", 4900.00, "APPROVED");
+            int totalRows = 36;
+            long totalDays = END.toEpochDay() - START.toEpochDay();
+
+            for (int i = 0; i < totalRows; i++) {
+                long offsetDays = (i * totalDays) / (totalRows - 1);
+                LocalDate orderDate = START.plusDays(offsetDays);
+
+                int customerId = (i % 5) + 1;
+                double totalAmount = 2400 + (i * 190);
+
+                String status;
+                if (orderDate.isBefore(LocalDate.of(2025, 10, 1))) {
+                    status = "DELIVERED";
+                } else if (orderDate.isBefore(LocalDate.of(2025, 11, 15))) {
+                    status = "SHIPPED";
+                } else {
+                    status = (i % 2 == 0) ? "APPROVED" : "DELIVERED";
+                }
+
+                insertOrder(
+                        ps,
+                        customerId,
+                        orderDate.format(FMT),
+                        totalAmount,
+                        status
+                );
+            }
         }
     }
 
@@ -51,11 +79,68 @@ public class LogisticsSeed {
         """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            insertShipment(ps, 1, "Scranton", "PA", "2026-01-07", "2026-01-09", "DELIVERED", 1, 2);
-            insertShipment(ps, 2, "Wilkes-Barre", "PA", "2026-01-14", "2026-01-17", "DELIVERED", 1, 3);
-            insertShipment(ps, 3, "Scranton", "PA", "2026-02-03", null, "IN_TRANSIT", 1, null);
-            insertShipment(ps, 4, "Stamford", "CT", "2026-02-17", "2026-02-22", "DELAYED", 0, 5);
-            insertShipment(ps, 5, "Utica", "NY", "2026-03-03", null, "READY", 1, null);
+            String[][] destinations = {
+                {"Scranton", "PA"},
+                {"Wilkes-Barre", "PA"},
+                {"Scranton", "PA"},
+                {"Stamford", "CT"},
+                {"Utica", "NY"}
+            };
+
+            int totalRows = 36;
+            long totalDays = END.toEpochDay() - START.toEpochDay();
+
+            for (int i = 0; i < totalRows; i++) {
+                int orderId = i + 1;
+
+                long offsetDays = (i * totalDays) / (totalRows - 1);
+                LocalDate orderDate = START.plusDays(offsetDays);
+                LocalDate shipDate = orderDate.plusDays(1);
+
+                String city = destinations[i % destinations.length][0];
+                String state = destinations[i % destinations.length][1];
+
+                String deliveryStatus;
+                Integer deliveryDays;
+                String deliveryDate;
+                int onTime;
+
+                if (orderDate.isBefore(LocalDate.of(2025, 10, 1))) {
+                    deliveryDays = 2 + (i % 3);
+                    deliveryDate = shipDate.plusDays(deliveryDays).format(FMT);
+                    deliveryStatus = (i % 6 == 0) ? "DELAYED" : "DELIVERED";
+                    onTime = deliveryStatus.equals("DELIVERED") ? 1 : 0;
+                } else if (orderDate.isBefore(LocalDate.of(2025, 11, 15))) {
+                    deliveryDays = null;
+                    deliveryDate = null;
+                    deliveryStatus = "IN_TRANSIT";
+                    onTime = 1;
+                } else {
+                    if (i % 2 == 0) {
+                        deliveryDays = null;
+                        deliveryDate = null;
+                        deliveryStatus = "READY";
+                        onTime = 1;
+                    } else {
+                        deliveryDays = 4;
+                        deliveryDate = shipDate.plusDays(deliveryDays).format(FMT);
+                        deliveryStatus = "DELIVERED";
+                        onTime = 1;
+                    }
+                }
+
+                insertShipment(
+                        ps,
+                        orderId,
+                        city,
+                        state,
+                        shipDate.format(FMT),
+                        deliveryDate,
+                        deliveryStatus,
+                        onTime,
+                        deliveryDays
+                );
+            }
         }
     }
 

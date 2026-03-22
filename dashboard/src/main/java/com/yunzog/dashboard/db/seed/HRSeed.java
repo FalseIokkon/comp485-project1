@@ -34,9 +34,9 @@ public class HRSeed {
         """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            insertOpening(ps, "HR Coordinator", 1, 1, "2026-03-01", "OPEN");
-            insertOpening(ps, "Warehouse Associate", 5, 1, "2026-03-05", "OPEN");
-            insertOpening(ps, "Marketing Analyst", 3, 2, "2026-02-20", "FILLED");
+            insertOpening(ps, "HR Coordinator", 1, 1, "2025-12-01", "OPEN");
+            insertOpening(ps, "Warehouse Associate", 5, 1, "2025-12-05", "OPEN");
+            insertOpening(ps, "Marketing Analyst", 3, 2, "2025-11-20", "FILLED");
         }
     }
 

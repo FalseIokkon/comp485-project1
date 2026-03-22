@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml"
@@ -78,18 +79,22 @@
 
     <center>
         <VBox spacing="16">
-            <LineChart fx:id="performanceChart"
-                       title="Revenue vs Expenses by Month"
-                       animated="false"
-                       createSymbols="true"
-                       VBox.vgrow="ALWAYS">
-                <xAxis>
-                    <CategoryAxis label="Month"/>
-                </xAxis>
-                <yAxis>
-                    <NumberAxis label="Amount"/>
-                </yAxis>
-            </LineChart>
+            <HBox alignment="CENTER">
+                <LineChart fx:id="performanceChart"
+                        title="Revenue vs Expenses by Month"
+                        animated="false"
+                        createSymbols="true"
+                        prefHeight="400"
+                        prefWidth="700"
+                        VBox.vgrow="NEVER">
+                    <xAxis>
+                        <CategoryAxis label="Month"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Amount"/>
+                    </yAxis>
+                </LineChart>
+            </HBox>
 
             <VBox spacing="10" VBox.vgrow="ALWAYS">
                 <Label text="Division Metrics"
