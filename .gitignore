@@ -36,5 +36,3 @@ Thumbs.db
 # =========================
 *.db
 *.sqlite
-*.sql
-!src/main/resources/**/*.sql  # Optional: Un-ignore SQL scripts in resources (like your schema.sql)
