@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.yunzog.dashboard.controller.DistributionController"
+            style="-fx-background-color: #121212;">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <top>
+        <FlowPane hgap="16" vgap="16">
+            <BorderPane.margin>
+                <Insets bottom="16"/>
+            </BorderPane.margin>
+
+            <VBox spacing="6" prefWidth="180"
+              style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Total Orders"
+                   style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="ordersLabel"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+              style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Total Shipments"
+                   style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="shipmentsLabel"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+              style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Delivered"
+                   style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="deliveredLabel"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+              style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="On-Time %"
+                   style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="onTimeLabel"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+        </FlowPane>
+    </top>
+
+    <center>
+        <VBox spacing="16">
+
+            <HBox alignment="CENTER">
+                <BarChart fx:id="shipmentChart" prefHeight="250">
+                    <xAxis>
+                        <CategoryAxis label="Month"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Shipments"/>
+                    </yAxis>
+                </BarChart>
+            </HBox>
+
+            <TableView fx:id="shipmentTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="customerCol" text="Customer"/>
+                    <TableColumn fx:id="cityCol" text="City"/>
+                    <TableColumn fx:id="stateCol" text="State"/>
+                    <TableColumn fx:id="statusCol" text="Status"/>
+                    <TableColumn fx:id="shipDateCol" text="Ship Date"/>
+                    <TableColumn fx:id="deliveryDateCol" text="Delivery Date"/>
+                </columns>
+            </TableView>
+
+        </VBox>
+    </center>
+</BorderPane>

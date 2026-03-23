@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.yunzog.dashboard.controller.FinanceController"
+            style="-fx-background-color: #121212;">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <top>
+        <FlowPane hgap="16" vgap="16">
+            <BorderPane.margin>
+                <Insets bottom="16"/>
+            </BorderPane.margin>
+
+            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Total Expenses" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="totalExpensesLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Payroll This Month" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="payrollLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Invoices Sent" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="invoicesSentLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Payments Received" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="paymentsReceivedLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Outstanding Amount" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="outstandingLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+        </FlowPane>
+    </top>
+
+    <center>
+        <VBox spacing="16">
+            <HBox alignment="CENTER">
+                <BarChart fx:id="expensesChart" title="Expenses by Month" categoryGap="16" barGap="8" legendVisible="false" animated="false" prefWidth="700" prefHeight="260">
+                    <xAxis>
+                        <CategoryAxis label="Month"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Amount ($)"/>
+                    </yAxis>
+                </BarChart>
+            </HBox>
+
+            <VBox spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="Invoices" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+                <TableView fx:id="invoiceTable" VBox.vgrow="ALWAYS" style="-fx-background-color: #1f1f1f;">
+                    <columns>
+                        <TableColumn fx:id="invoiceNumberCol" text="Invoice #"/>
+                        <TableColumn fx:id="customerCol" text="Customer"/>
+                        <TableColumn fx:id="amountCol" text="Amount"/>
+                        <TableColumn fx:id="amountPaidCol" text="Paid"/>
+                        <TableColumn fx:id="statusCol" text="Status"/>
+                        <TableColumn fx:id="invoiceDateCol" text="Date"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

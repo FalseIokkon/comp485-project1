@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.yunzog.dashboard.controller.ManufacturingController"
+            style="-fx-background-color: #121212;">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <top>
+        <FlowPane hgap="16" vgap="16">
+            <BorderPane.margin>
+                <Insets bottom="16"/>
+            </BorderPane.margin>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Total Products"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="totalProductsLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Batches Scheduled"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="batchesScheduledLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Units Produced"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="unitsProducedLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Defect Count"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;" />
+                <Label fx:id="defectCountLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+        </FlowPane>
+    </top>
+
+    <center>
+        <VBox spacing="16">
+
+            <HBox alignment="CENTER">
+                <BarChart fx:id="productionChart"
+                          title="Units Produced vs Planned"
+                          categoryGap="16"
+                          barGap="8"
+                          legendVisible="true"
+                          animated="false"
+                          prefWidth="700"
+                          prefHeight="260">
+                    <xAxis>
+                        <CategoryAxis label="Month"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Units"/>
+                    </yAxis>
+                </BarChart>
+            </HBox>
+
+            <VBox spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="Production Batches"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+                <TableView fx:id="batchTable"
+                           VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: #1f1f1f;">
+                    <columns>
+                        <TableColumn fx:id="productCol" text="Product"/>
+                        <TableColumn fx:id="scheduledDateCol" text="Scheduled Date"/>
+                        <TableColumn fx:id="completedDateCol" text="Completed Date"/>
+                        <TableColumn fx:id="unitsPlannedCol" text="Units Planned"/>
+                        <TableColumn fx:id="unitsProducedCol" text="Units Produced"/>
+                        <TableColumn fx:id="defectCountCol" text="Defects"/>
+                        <TableColumn fx:id="machineUptimeCol" text="Machine Uptime"/>
+                        <TableColumn fx:id="statusCol" text="Status"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </center>
+</BorderPane>
