@@ -35,4 +35,3 @@ Thumbs.db
 # Database / SQL
 # =========================
 *.db
-*.sqlite
