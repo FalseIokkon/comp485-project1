@@ -3,15 +3,41 @@
 ## Project Structure
 
 ```
-src/main/java/com/yunzog/dashboard
-    ├── App.java
-    ├── MainController.java
-    ├── db/
-    ├── dao/
-    └── model/
+dashboard/
+├── pom.xml
+├── yunzog.db
 
-src/main/resources/com/yunzog/dashboard
-    └── main.fxml
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── App.java
+│   │   │   ├── MainController.java
+│   │   │   │
+│   │   │   ├── controller/
+│   │   │   │   ├── OverviewController.java
+│   │   │   │   ├── FinanceController.java
+│   │   │   │   └── ... other controllers
+│   │   │   │
+│   │   │   ├── dao/
+│   │   │   │   ├── OverviewDao.java
+│   │   │   │   ├── FinanceDao.java
+│   │   │   │   └── ... other DAOs
+│   │   │   │
+│   │   │   ├── db/
+│   │   │   │   ├── DB.java
+│   │   │   │   ├── DatabaseInitializer.java
+│   │   │   │   ├── DatabaseSeeder.java
+│   │   │   │   └── seed/
+│   │   │   │       ├── OrganizationSeed.java
+│   │   │   │       └── ... other seed classes
+│   │   │   │
+│   │   │   └── model/
+│   │   │       └── DivisionKPI.java
+│   │   │
+│   │   └── resources/
+│   │       ├── main.fxml
+│   │       ├── overview-tab.fxml
+│   │       └── ... other FXML files
 ```
 
 ## Requirements
