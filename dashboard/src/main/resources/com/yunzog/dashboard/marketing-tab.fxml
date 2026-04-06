@@ -6,64 +6,129 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.yunzog.dashboard.controller.MarketingController"
             style="-fx-background-color: #121212;">
-    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
 
     <top>
         <FlowPane hgap="16" vgap="16">
-            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
-                <Label text="Total Budget" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;"/>
-                <Label fx:id="totalBudgetLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <BorderPane.margin>
+                <Insets bottom="16"/>
+            </BorderPane.margin>
+
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Total Budget"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;"/>
+                <Label fx:id="totalBudgetLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
             </VBox>
 
-            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
-                <Label text="Total Spend" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;"/>
-                <Label fx:id="totalSpendLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Total Spend"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;"/>
+                <Label fx:id="totalSpendLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
             </VBox>
 
-            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
-                <Label text="Active Campaigns" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;"/>
-                <Label fx:id="activeCampaignsLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Active Campaigns"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;"/>
+                <Label fx:id="activeCampaignsLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
             </VBox>
 
-            <VBox spacing="6" prefWidth="180" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
-                <Label text="Leads This Month" style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;"/>
-                <Label fx:id="leadsThisMonthLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <VBox spacing="6" prefWidth="180"
+                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 10; -fx-padding: 16;">
+                <Label text="Leads This Month"
+                       style="-fx-font-size: 13px; -fx-text-fill: #bdbdbd;"/>
+                <Label fx:id="leadsThisMonthLabel"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
             </VBox>
         </FlowPane>
     </top>
 
     <center>
         <VBox spacing="16">
-            <HBox alignment="CENTER">
-                <BarChart fx:id="spendChart" title="Campaign Spend by Month" categoryGap="16" barGap="8" legendVisible="false" animated="false" prefWidth="700" prefHeight="260">
-                    <xAxis><CategoryAxis label="Month"/></xAxis>
-                    <yAxis><NumberAxis label="Amount ($)"/></yAxis>
-                </BarChart>
-            </HBox>
 
-            <VBox spacing="10" VBox.vgrow="ALWAYS">
-                <Label text="Campaigns" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-                <TableView fx:id="campaignTable" VBox.vgrow="ALWAYS" style="-fx-background-color: #1f1f1f;">
-                    <columns>
-                        <TableColumn fx:id="nameCol" text="Campaign"/>
-                        <TableColumn fx:id="channelCol" text="Channel"/>
-                        <TableColumn fx:id="budgetCol" text="Budget"/>
-                        <TableColumn fx:id="spendCol" text="Spend"/>
-                        <TableColumn fx:id="statusCol" text="Status"/>
-                        <TableColumn fx:id="startDateCol" text="Start Date"/>
-                        <TableColumn fx:id="endDateCol" text="End Date"/>
-                    </columns>
-                </TableView>
-            </VBox>
+            <TabPane VBox.vgrow="ALWAYS"
+                     tabClosingPolicy="UNAVAILABLE"
+                     style="-fx-background-color: transparent;">
+
+                <!-- ===== Chart Tab ===== -->
+                <tabs>
+                    <Tab text="Chart">
+                        <content>
+                            <VBox spacing="10"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 12; -fx-padding: 20;">
+
+                                <Label text="Marketing Spend Trends"
+                                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+                                <BarChart fx:id="spendChart"
+                                          title="Campaign Spend by Month"
+                                          categoryGap="20"
+                                          barGap="6"
+                                          legendVisible="false"
+                                          animated="false"
+                                          prefHeight="400"
+                                          maxWidth="Infinity"
+                                          VBox.vgrow="ALWAYS">
+                                    <xAxis>
+                                        <CategoryAxis label="Month"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Amount ($)"/>
+                                    </yAxis>
+                                </BarChart>
+
+                            </VBox>
+                        </content>
+                    </Tab>
+
+                    <!-- ===== Table Tab ===== -->
+                    <Tab text="Table">
+                        <content>
+                            <VBox spacing="10"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 12; -fx-padding: 20;">
+
+                                <Label text="Campaigns"
+                                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+                                <TableView fx:id="campaignTable"
+                                           VBox.vgrow="ALWAYS"
+                                           style="-fx-background-color: #1f1f1f;">
+                                    <columns>
+                                        <TableColumn fx:id="nameCol" text="Campaign"/>
+                                        <TableColumn fx:id="channelCol" text="Channel"/>
+                                        <TableColumn fx:id="budgetCol" text="Budget"/>
+                                        <TableColumn fx:id="spendCol" text="Spend"/>
+                                        <TableColumn fx:id="statusCol" text="Status"/>
+                                        <TableColumn fx:id="startDateCol" text="Start Date"/>
+                                        <TableColumn fx:id="endDateCol" text="End Date"/>
+                                    </columns>
+                                </TableView>
+
+                            </VBox>
+                        </content>
+                    </Tab>
+
+                </tabs>
+            </TabPane>
+
         </VBox>
     </center>
 </BorderPane>

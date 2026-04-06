@@ -5,7 +5,15 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
-
+/**
+ * Controller for the main application shell.
+ *
+ * <p>This controller manages basic UI interactions such as refreshing
+ * the dashboard and exiting the application.</p>
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class MainController {
 
     @FXML private Button refreshButton;

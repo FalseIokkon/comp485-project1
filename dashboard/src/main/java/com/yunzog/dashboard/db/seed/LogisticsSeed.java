@@ -5,6 +5,13 @@ import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Seeds logistics and distribution data including customers, orders,
+ * and shipment records across the application reporting period.
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class LogisticsSeed {
 
     private static final LocalDate START = LocalDate.of(2025, 1, 1);

@@ -6,6 +6,13 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Seeds finance-related database tables with sample expense, payroll,
+ * and invoice data for the application reporting period.
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class FinanceSeed {
 
     private static final LocalDate START = LocalDate.of(2025, 1, 1);
@@ -50,11 +57,11 @@ public class FinanceSeed {
                 LocalDate expenseDate = START.plusDays(offsetDays);
 
                 int departmentId = switch (i % 5) {
-                    case 0 -> 2; // Finance
-                    case 1 -> 3; // Marketing
-                    case 2 -> 4; // Manufacturing
-                    case 3 -> 6; // Administration
-                    default -> 5; // Distribution
+                    case 0 -> 2;
+                    case 1 -> 3;
+                    case 2 -> 4;
+                    case 3 -> 6;
+                    default -> 5;
                 };
 
                 String category = categories[i % categories.length];

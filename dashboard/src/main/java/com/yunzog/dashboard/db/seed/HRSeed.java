@@ -3,6 +3,13 @@ package com.yunzog.dashboard.db.seed;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+/**
+ * Seeds human resources data including employee records and job openings
+ * used by the dashboard application.
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class HRSeed {
 
     public static void seed(Connection conn) throws Exception {

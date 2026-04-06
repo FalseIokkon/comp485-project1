@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * Seeds operations and manufacturing data including product records
+ * and production batch activity for the application reporting period.
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class OperationsSeed {
 
     private static final LocalDate START = LocalDate.of(2025, 1, 1);

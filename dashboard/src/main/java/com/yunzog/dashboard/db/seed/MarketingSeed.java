@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * Seeds marketing data including campaign records and lead generation
+ * activity across the application reporting period.
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class MarketingSeed {
 
     private static final LocalDate START = LocalDate.of(2025, 1, 1);

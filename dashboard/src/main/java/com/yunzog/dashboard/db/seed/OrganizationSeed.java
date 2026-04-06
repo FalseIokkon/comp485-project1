@@ -2,7 +2,13 @@ package com.yunzog.dashboard.db.seed;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+/**
+ * Seeds core organizational data including departments and branch
+ * locations used throughout the application.
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class OrganizationSeed {
 
     public static void seed(Connection conn) throws Exception {

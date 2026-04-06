@@ -10,6 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.stream.Collectors;
 
+/**
+ * Handles initial database setup for the application.
+ *
+ * <p>This class loads and executes the database schema, enables required
+ * database settings, and seeds initial data if the database is empty.</p>
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class DatabaseInitializer {
 
     private static final String SCHEMA_PATH = "/com/yunzog/dashboard/schema.sql";

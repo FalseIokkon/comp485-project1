@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml"
@@ -79,38 +81,66 @@
 
     <center>
         <VBox spacing="16">
-            <HBox alignment="CENTER">
-                <LineChart fx:id="performanceChart"
-                        title="Revenue vs Expenses by Month"
-                        animated="false"
-                        createSymbols="true"
-                        prefHeight="400"
-                        prefWidth="700"
-                        VBox.vgrow="NEVER">
-                    <xAxis>
-                        <CategoryAxis label="Month"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis label="Amount"/>
-                    </yAxis>
-                </LineChart>
-            </HBox>
 
-            <VBox spacing="10" VBox.vgrow="ALWAYS">
-                <Label text="Division Metrics"
-                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            <TabPane VBox.vgrow="ALWAYS"
+                    style="-fx-background-color: transparent;">
 
-                <TableView fx:id="table"
-                           VBox.vgrow="ALWAYS"
-                           style="-fx-background-color: #1f1f1f;">
-                    <columns>
-                        <TableColumn fx:id="divisionCol" text="Division"/>
-                        <TableColumn fx:id="metricCol" text="Metric"/>
-                        <TableColumn fx:id="valueCol" text="Value"/>
-                        <TableColumn fx:id="asOfCol" text="As Of"/>
-                    </columns>
-                </TableView>
-            </VBox>
+                <!-- ===== Chart Tab ===== -->
+                <tabs>
+                    <Tab text="Chart" closable="false">
+                        <content>
+                            <VBox spacing="10"
+                                style="-fx-background-color: #1f1f1f; -fx-background-radius: 12; -fx-padding: 20;">
+
+                                <Label text="Financial Performance"
+                                    style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+                                <LineChart fx:id="performanceChart"
+                                        title="Revenue vs Expenses by Month"
+                                        animated="false"
+                                        createSymbols="true"
+                                        prefHeight="420"
+                                        maxWidth="Infinity"
+                                        VBox.vgrow="ALWAYS">
+                                    <xAxis>
+                                        <CategoryAxis label="Month"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Amount"/>
+                                    </yAxis>
+                                </LineChart>
+
+                            </VBox>
+                        </content>
+                    </Tab>
+
+                    <!-- ===== Table Tab ===== -->
+                    <Tab text="Table" closable="false">
+                        <content>
+                            <VBox spacing="10"
+                                style="-fx-background-color: #1f1f1f; -fx-background-radius: 12; -fx-padding: 20;">
+
+                                <Label text="Division Metrics"
+                                    style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+                                <TableView fx:id="table"
+                                        VBox.vgrow="ALWAYS"
+                                        style="-fx-background-color: #1f1f1f;">
+                                    <columns>
+                                        <TableColumn fx:id="divisionCol" text="Division"/>
+                                        <TableColumn fx:id="metricCol" text="Metric"/>
+                                        <TableColumn fx:id="valueCol" text="Value"/>
+                                        <TableColumn fx:id="asOfCol" text="As Of"/>
+                                    </columns>
+                                </TableView>
+
+                            </VBox>
+                        </content>
+                    </Tab>
+
+                </tabs>
+            </TabPane>
+
         </VBox>
     </center>
 </BorderPane>

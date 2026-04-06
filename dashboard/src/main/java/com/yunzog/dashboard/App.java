@@ -11,7 +11,15 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.Style;
 
-
+/**
+ * Entry point for the Yunzog Dashboard application.
+ *
+ * <p>This class initializes the database and launches the JavaFX UI,
+ * loading the main dashboard view and applying application styling.</p>
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class App extends Application {
 
     @Override

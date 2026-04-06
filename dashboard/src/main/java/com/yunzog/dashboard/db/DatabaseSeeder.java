@@ -9,6 +9,16 @@ import com.yunzog.dashboard.db.seed.OrganizationSeed;
 
 import java.sql.Connection;
 
+/**
+ * Seeds the database with initial data across all business domains.
+ *
+ * <p>This class coordinates the execution of individual seeders for each
+ * division and ensures that all seed operations are performed within a
+ * single transaction.</p>
+ *
+ * @author Yun, Jonathan
+ * @author Zoghlami, Amin
+ */
 public class DatabaseSeeder {
 
     public static void seed(Connection conn) {

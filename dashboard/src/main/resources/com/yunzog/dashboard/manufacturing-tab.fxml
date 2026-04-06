@@ -7,9 +7,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
@@ -64,43 +65,71 @@
     <center>
         <VBox spacing="16">
 
-            <HBox alignment="CENTER">
-                <BarChart fx:id="productionChart"
-                          title="Units Produced vs Planned"
-                          categoryGap="16"
-                          barGap="8"
-                          legendVisible="true"
-                          animated="false"
-                          prefWidth="700"
-                          prefHeight="260">
-                    <xAxis>
-                        <CategoryAxis label="Month"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis label="Units"/>
-                    </yAxis>
-                </BarChart>
-            </HBox>
+            <TabPane VBox.vgrow="ALWAYS"
+                     tabClosingPolicy="UNAVAILABLE"
+                     style="-fx-background-color: transparent;">
 
-            <VBox spacing="10" VBox.vgrow="ALWAYS">
-                <Label text="Production Batches"
-                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                <!-- ===== Chart Tab ===== -->
+                <tabs>
+                    <Tab text="Chart">
+                        <content>
+                            <VBox spacing="10"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 12; -fx-padding: 20;">
 
-                <TableView fx:id="batchTable"
-                           VBox.vgrow="ALWAYS"
-                           style="-fx-background-color: #1f1f1f;">
-                    <columns>
-                        <TableColumn fx:id="productCol" text="Product"/>
-                        <TableColumn fx:id="scheduledDateCol" text="Scheduled Date"/>
-                        <TableColumn fx:id="completedDateCol" text="Completed Date"/>
-                        <TableColumn fx:id="unitsPlannedCol" text="Units Planned"/>
-                        <TableColumn fx:id="unitsProducedCol" text="Units Produced"/>
-                        <TableColumn fx:id="defectCountCol" text="Defects"/>
-                        <TableColumn fx:id="machineUptimeCol" text="Machine Uptime"/>
-                        <TableColumn fx:id="statusCol" text="Status"/>
-                    </columns>
-                </TableView>
-            </VBox>
+                                <Label text="Production Trends"
+                                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+                                <BarChart fx:id="productionChart"
+                                          title="Units Produced vs Planned"
+                                          categoryGap="20"
+                                          barGap="6"
+                                          legendVisible="true"
+                                          animated="false"
+                                          prefHeight="400"
+                                          maxWidth="Infinity"
+                                          VBox.vgrow="ALWAYS">
+                                    <xAxis>
+                                        <CategoryAxis label="Month"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Units"/>
+                                    </yAxis>
+                                </BarChart>
+
+                            </VBox>
+                        </content>
+                    </Tab>
+
+                    <!-- ===== Table Tab ===== -->
+                    <Tab text="Table">
+                        <content>
+                            <VBox spacing="10"
+                                  style="-fx-background-color: #1f1f1f; -fx-background-radius: 12; -fx-padding: 20;">
+
+                                <Label text="Production Batches"
+                                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+                                <TableView fx:id="batchTable"
+                                           VBox.vgrow="ALWAYS"
+                                           style="-fx-background-color: #1f1f1f;">
+                                    <columns>
+                                        <TableColumn fx:id="productCol" text="Product"/>
+                                        <TableColumn fx:id="scheduledDateCol" text="Scheduled Date"/>
+                                        <TableColumn fx:id="completedDateCol" text="Completed Date"/>
+                                        <TableColumn fx:id="unitsPlannedCol" text="Units Planned"/>
+                                        <TableColumn fx:id="unitsProducedCol" text="Units Produced"/>
+                                        <TableColumn fx:id="defectCountCol" text="Defects"/>
+                                        <TableColumn fx:id="machineUptimeCol" text="Machine Uptime"/>
+                                        <TableColumn fx:id="statusCol" text="Status"/>
+                                    </columns>
+                                </TableView>
+
+                            </VBox>
+                        </content>
+                    </Tab>
+
+                </tabs>
+            </TabPane>
 
         </VBox>
     </center>
