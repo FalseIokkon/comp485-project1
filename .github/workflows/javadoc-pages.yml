@@ -1,0 +1,45 @@
+name: Publish Javadoc to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'  
+
+      - name: Build Javadoc (inside dashboard folder)
+        run: mvn -B clean javadoc:javadoc
+        working-directory: dashboard   
+
+      - name: Disable Jekyll
+        run: touch dashboard/target/site/apidocs/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dashboard/target/site/apidocs
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy
+        uses: actions/deploy-pages@v4
